@@ -1,0 +1,12 @@
+# exclude everything
+dataset/*
+examples/*
+fishSpeciesClassification.model
+lb.pickle
+.idea/*
+.DS_Store
+pyimagesearch/__pycache__/*
+
+# exception to the rule
+#!dataset/.gitkeep
+#!examples/.gitkeep
