@@ -1,6 +1,6 @@
 # Fish Species Classification
 This is a Computer vision project. The main aim of this project is to identify the species of fish from the image provided to it.<br>
-This work is inspired by the Podex creation of Adrian Rosebrock(2016).
+This work is inspired by the Pokedex project of <b>Adrian Rosebrock(2016)</b>.
 
 In this Readme file I will walk you through to head start the project running.
 
@@ -54,6 +54,6 @@ Now you will see a window popped up to show the classified image as correct and 
 
 <p>References:
     <ul>
-        <li>Adrian Rosebrock, 2016, <i>Keras and Convolutional Neural Networks (CNNs)</i>, Pyimagesearch, retrieved 7 April 2020 <https://www.pyimagesearch.com> </li>
+        <li>Adrian Rosebrock, 2016, <i>Keras and Convolutional Neural Networks (CNNs)</i>, Pyimagesearch, retrieved 7 April 2020 &lt;https://www.pyimagesearch.com&gt; </li>
     </ul>
 </p>
