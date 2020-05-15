@@ -1,5 +1,6 @@
 # Fish Species Classification
-This is a Computer vision project. The main aim of this project is to identify the species of fish from the image provided to it.
+This is a Computer vision project. The main aim of this project is to identify the species of fish from the image provided to it.<br>
+This work is inspired by the Pokedex project of <b>Adrian Rosebrock(2016)</b>.
 
 In this Readme file I will walk you through to head start the project running.
 
@@ -27,7 +28,7 @@ In this Readme file I will walk you through to head start the project running.
             <b>--plot</b> :  to give the name under which are going to save our plot of performance of this model. This argument is optional since there is a "plot.png" file already set as default
         </li>
     </ul>
-    If you are following the above steps our command should look like this.
+    If you are following the above steps our command should look like this:<br>
     <b>"python train.py --dataset dataset --model fishSpeciesClassification.model --labelbin lb.pickle --plot "plot.png"</b> 
 </li>
 
@@ -45,8 +46,14 @@ In this Readme file I will walk you through to head start the project running.
             <b>--image</b> :  to give the path the image you are going to classify. Here we are using that images saved in examples directory.
         </li>
     </ul>
-    If you are following the above steps our command should look like this.
-    <b> python classify.py --model fishSpeciesClassification.model --labelbin lb.pickle --image examples/fish_species.png </b>
+    If you are following the above steps our command should look like this:<br>
+    <b> "python classify.py --model fishSpeciesClassification.model --labelbin lb.pickle --image examples/fish_species.png"</b>
 </li>
 </ol>
-Now you will see a window popped up to show the classified image as correct and incorrect and it's accuracy percentage.
+Now you will see a window popped up to show the classified image as correct and incorrect and it's accuracy percentage.<br>
+
+<p>References:
+    <ul>
+        <li>Adrian Rosebrock, 2016, <i>Keras and Convolutional Neural Networks (CNNs)</i>, Pyimagesearch, retrieved 7 April 2020 &lt;https://www.pyimagesearch.com&gt; </li>
+    </ul>
+</p>
