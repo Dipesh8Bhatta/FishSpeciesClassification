@@ -1,7 +1,6 @@
 # exclude everything
 dataset/*
-examples/*
-Data/*
+Data/Source_Images/*
 fishSpeciesClassification.model
 lb.pickle
 .idea/*
