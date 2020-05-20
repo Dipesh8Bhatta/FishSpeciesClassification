@@ -60,7 +60,8 @@ def classify(model, label, image_path):
 
 
 def main():
-	classify("fishSpeciesClassification.model", "lb.pickle", "examples/common-lionfish-devil-firefish-ptero-3.jpg")
+	classify("Data/Model_Weights/fishSpeciesClassification.model", "Data/Model_Weights/lb.pickle",
+			 "Data/Source_Images/examples/Sphyraena_argentea,I_RR2624.jpg")
 
 
 if __name__ == "__main__":
