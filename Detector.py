@@ -2,7 +2,7 @@ import os
 import sys
 
 
-def get_parent_dir(n=1):
+def get_parent_dir(n=0):
     """ returns the n-th parent dicrectory of the current
     working directory """
     current_path = os.path.dirname(os.path.abspath(__file__))
@@ -11,32 +11,30 @@ def get_parent_dir(n=1):
     return current_path
 
 
-src_path = os.path.join(get_parent_dir(1), "2_Training", "src")
-utils_path = os.path.join(get_parent_dir(1), "Utils")
+utils_path = os.path.join(get_parent_dir(0), "Utils")
 
-sys.path.append(src_path)
 sys.path.append(utils_path)
 
 import argparse
 from keras_yolo3.yolo import YOLO, detect_video
 from PIL import Image
 from timeit import default_timer as timer
-from utils import load_extractor_model, load_features, parse_input, detect_object
+from Utils.utils import load_extractor_model, load_features, parse_input, detect_object
 import test
 import utils
 import pandas as pd
 import numpy as np
-from Get_File_Paths import GetFileList
+from Utils.Get_File_Paths import GetFileList
 import random
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
 # Set up folder names for default values
-data_folder = os.path.join(get_parent_dir(n=1), "Data")
+data_folder = os.path.join(get_parent_dir(n=0), "Data")
 
 image_folder = os.path.join(data_folder, "Source_Images")
 
-image_test_folder = os.path.join(image_folder, "Test_Images")
+# image_test_folder = os.path.join(image_folder, "Test_Images")
 
 detection_results_folder = os.path.join(image_folder, "Test_Image_Detection_Results")
 detection_results_file = os.path.join(detection_results_folder, "Detection_Results.csv")
@@ -46,11 +44,12 @@ model_folder = os.path.join(data_folder, "Model_Weights")
 model_weights = os.path.join(model_folder, "trained_weights_final.h5")
 model_classes = os.path.join(model_folder, "data_classes.txt")
 
-anchors_path = os.path.join(src_path, "keras_yolo3", "model_data", "yolo_anchors.txt")
+anchors_path = os.path.join(get_parent_dir(n=0), "keras_yolo3", "model_data", "yolo_anchors.txt")
 
 FLAGS = None
 
-if __name__ == "__main__":
+
+def detect(image_test_folder):
     # Delete all default flags
     parser = argparse.ArgumentParser(argument_default=argparse.SUPPRESS)
     """
@@ -62,7 +61,7 @@ if __name__ == "__main__":
         type=str,
         default=image_test_folder,
         help="Path to image/video directory. All subdirectories will be included. Default is "
-        + image_test_folder,
+             + image_test_folder,
     )
 
     parser.add_argument(
@@ -70,7 +69,7 @@ if __name__ == "__main__":
         type=str,
         default=detection_results_folder,
         help="Output path for detection results. Default is "
-        + detection_results_folder,
+             + detection_results_folder,
     )
 
     parser.add_argument(
@@ -130,7 +129,7 @@ if __name__ == "__main__":
         dest="box",
         default=detection_results_file,
         help="File to save bounding box results to. Default is "
-        + detection_results_file,
+             + detection_results_file,
     )
 
     parser.add_argument(
@@ -281,3 +280,8 @@ if __name__ == "__main__":
         )
     # Close the current yolo session
     yolo.close_session()
+    return detection_results_folder
+
+
+if __name__ == "__main__":
+    detect()
