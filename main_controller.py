@@ -2,7 +2,6 @@ import pandas as pd
 from PIL import Image
 import os
 import glob
-# import macpath
 
 import Detector as dt
 import classify as cs
@@ -21,11 +20,13 @@ def get_parent_dir(n=0):
 data_folder = os.path.join(get_parent_dir(n=0), "Data")
 model_weights = os.path.join(data_folder, 'Model_Weights')
 source_images = os.path.join(data_folder, 'Source_Images')
+test_images_path = os.path.join(source_images, 'Test_Images')
 image_classification_source = os.path.join(source_images, "examples")
+vggnet_model_path = os.path.join(model_weights, "fishSpeciesClassification.model")
+pickle_path = os.path.join(model_weights, "lb.pickle")
 
 
 def find_test_image_YOLOv3():
-    test_images_path = os.path.join(source_images, 'Test_Images')
     return test_images_path
 
 
@@ -41,7 +42,8 @@ def crop_detected_image(detection_results_folder):
         print(source_image_path)
         im = Image.open(source_image_path)
         im_crop = im.crop((row['xmin'], row['ymin'], row['xmax'], row['ymax']))
-        image_classification_source_path = os.path.join(image_classification_source, str(row['label'])+"-"+row['image'])
+        image_classification_source_path = os.path.join(image_classification_source, str(row['label']) + "-" +
+                                                        str(index) + "-" + row['image'])
         im_crop.save(image_classification_source_path, quality=95)
         im_crop.show()
 
@@ -64,18 +66,17 @@ def main():
     # Function to crop the detected image from the YOLOv3 prediction.
     crop_detected_image(detection_results_folder)
 
-    # Function to classify images using tiny VGGNet
-    for test_image in os.listdir(image_classification_source):
-        print("This is test image..." + test_image + "...for VGGNET classification.")
-        test_image_path = os.path.join(image_classification_source, test_image)
-        vggnet_model_path = os.path.join(model_weights, "fishSpeciesClassification.model")
-        pickle_path = os.path.join(model_weights, "lb.pickle")
-        cs.classify(vggnet_model_path, pickle_path, test_image_path)
+    # classify images using tiny VGGNet
+    print("Model>>>>>>>>>>>>>>>")
+    print(vggnet_model_path)
+    print("Model>>>>>>>>>>>>>>>")
+    print(pickle_path)
+    cs.classify(vggnet_model_path, pickle_path, image_classification_source)
 
     # Function to clear the directories.
     # TO DO: path passed as an argument should be managed.
-    clear_directory("Data/Source_Images/Test_Images")
-    clear_directory("examples")
+    clear_directory(test_images_path)
+    clear_directory(image_classification_source)
 
 
 if __name__ == "__main__":
