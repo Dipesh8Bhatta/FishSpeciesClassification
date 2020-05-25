@@ -6,7 +6,8 @@ lb.pickle
 .idea/*
 .DS_Store
 pyimagesearch/__pycache__/*
-
+*.pyc
+*/__pycache__/*
 # exception to the rule
 #!dataset/.gitkeep
 #!examples/.gitkeep
