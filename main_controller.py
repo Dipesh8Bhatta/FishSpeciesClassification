@@ -3,7 +3,7 @@ from PIL import Image
 import os
 import glob
 
-import Detector as dt
+import detect as dt
 import classify as cs
 
 

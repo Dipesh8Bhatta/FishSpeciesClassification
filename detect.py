@@ -19,12 +19,11 @@ import argparse
 from keras_yolo3.yolo import YOLO, detect_video
 from PIL import Image
 from timeit import default_timer as timer
-from Utils.utils import load_extractor_model, load_features, parse_input, detect_object
+from keras_yolo3.Utils.utils import load_extractor_model, load_features, parse_input, detect_object
 import test
-import utils
 import pandas as pd
 import numpy as np
-from Utils.Get_File_Paths import GetFileList
+from keras_yolo3.Utils.Get_File_Paths import GetFileList
 import random
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
@@ -44,7 +43,7 @@ model_folder = os.path.join(data_folder, "Model_Weights")
 model_weights = os.path.join(model_folder, "trained_weights_final.h5")
 model_classes = os.path.join(model_folder, "data_classes.txt")
 
-anchors_path = os.path.join(get_parent_dir(n=0), "keras_yolo3", "model_data", "yolo_anchors.txt")
+anchors_path = os.path.join(model_folder, "yolo_anchors.txt")
 
 FLAGS = None
 
@@ -136,8 +135,8 @@ def detect(image_test_folder):
         "--postfix",
         type=str,
         dest="postfix",
-        default="_catface",
-        help='Specify the postfix for images with bounding boxes. Default is "_catface"',
+        default="_fish",
+        help='Specify the postfix for images with bounding boxes. Default is "_fish"',
     )
 
     FLAGS = parser.parse_args()
