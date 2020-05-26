@@ -1,19 +1,19 @@
 import os
-import sys
+# import sys
+import file_paths as fp
 
-
-def get_parent_dir(n=0):
-    """ returns the n-th parent dicrectory of the current
-    working directory """
-    current_path = os.path.dirname(os.path.abspath(__file__))
-    for k in range(n):
-        current_path = os.path.dirname(current_path)
-    return current_path
-
-
-utils_path = os.path.join(get_parent_dir(0), "Utils")
-
-sys.path.append(utils_path)
+# def get_parent_dir(n=0):
+#     """ returns the n-th parent dicrectory of the current
+#     working directory """
+#     current_path = os.path.dirname(os.path.abspath(__file__))
+#     for k in range(n):
+#         current_path = os.path.dirname(current_path)
+#     return current_path
+#
+#
+# utils_path = os.path.join(get_parent_dir(0), "Utils")
+#
+# sys.path.append(utils_path)
 
 import argparse
 from keras_yolo3.yolo import YOLO, detect_video
@@ -28,22 +28,22 @@ import random
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-# Set up folder names for default values
-data_folder = os.path.join(get_parent_dir(n=0), "Data")
-
-image_folder = os.path.join(data_folder, "Source_Images")
-
-# image_test_folder = os.path.join(image_folder, "Test_Images")
-
-detection_results_folder = os.path.join(image_folder, "Test_Image_Detection_Results")
-detection_results_file = os.path.join(detection_results_folder, "Detection_Results.csv")
-
-model_folder = os.path.join(data_folder, "Model_Weights")
-
-model_weights = os.path.join(model_folder, "trained_weights_final.h5")
-model_classes = os.path.join(model_folder, "data_classes.txt")
-
-anchors_path = os.path.join(model_folder, "yolo_anchors.txt")
+# # Set up folder names for default values
+# data_folder = os.path.join(get_parent_dir(n=0), "Data")
+#
+# image_folder = os.path.join(data_folder, "Source_Images")
+#
+# # image_test_folder = os.path.join(image_folder, "Test_Images")
+#
+# detection_results_folder = os.path.join(image_folder, "Test_Image_Detection_Results")
+# detection_results_file = os.path.join(detection_results_folder, "Detection_Results.csv")
+#
+# model_folder = os.path.join(data_folder, "Model_Weights")
+#
+# model_weights = os.path.join(model_folder, "trained_weights_final.h5")
+# model_classes = os.path.join(model_folder, "data_classes.txt")
+#
+# anchors_path = os.path.join(model_folder, "yolo_anchors.txt")
 
 FLAGS = None
 
@@ -66,9 +66,9 @@ def detect(image_test_folder):
     parser.add_argument(
         "--output",
         type=str,
-        default=detection_results_folder,
+        default=fp.detection_results_folder,
         help="Output path for detection results. Default is "
-             + detection_results_folder,
+             + fp.detection_results_folder,
     )
 
     parser.add_argument(
@@ -90,24 +90,24 @@ def detect(image_test_folder):
         "--yolo_model",
         type=str,
         dest="model_path",
-        default=model_weights,
-        help="Path to pre-trained weight files. Default is " + model_weights,
+        default=fp.YOLO_weights,
+        help="Path to pre-trained weight files. Default is " + fp.YOLO_weights,
     )
 
     parser.add_argument(
         "--anchors",
         type=str,
         dest="anchors_path",
-        default=anchors_path,
-        help="Path to YOLO anchors. Default is " + anchors_path,
+        default=fp.anchors_path,
+        help="Path to YOLO anchors. Default is " + fp.anchors_path,
     )
 
     parser.add_argument(
         "--classes",
         type=str,
         dest="classes_path",
-        default=model_classes,
-        help="Path to YOLO class specifications. Default is " + model_classes,
+        default=fp.YOLO_classname,
+        help="Path to YOLO class specifications. Default is " + fp.YOLO_classname,
     )
 
     parser.add_argument(
@@ -126,9 +126,9 @@ def detect(image_test_folder):
         "--box_file",
         type=str,
         dest="box",
-        default=detection_results_file,
+        default=fp.detection_results_file,
         help="File to save bounding box results to. Default is "
-             + detection_results_file,
+             + fp.detection_results_file,
     )
 
     parser.add_argument(
@@ -279,7 +279,7 @@ def detect(image_test_folder):
         )
     # Close the current yolo session
     yolo.close_session()
-    return detection_results_folder
+    return fp.detection_results_folder
 
 
 if __name__ == "__main__":

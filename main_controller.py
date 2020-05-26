@@ -5,29 +5,11 @@ import glob
 
 import detect as dt
 import classify as cs
-
-
-def get_parent_dir(n=0):
-    """ returns the n-th parent directory of the current
-    working directory """
-    current_path = os.path.dirname(os.path.abspath(__file__))
-    for k in range(n):
-        current_path = os.path.dirname(current_path)
-    return current_path
-
-
-# Set up path for the essential locations.
-data_folder = os.path.join(get_parent_dir(n=0), "Data")
-model_weights = os.path.join(data_folder, 'Model_Weights')
-source_images = os.path.join(data_folder, 'Source_Images')
-test_images_path = os.path.join(source_images, 'Test_Images')
-image_classification_source = os.path.join(source_images, "examples")
-vggnet_model_path = os.path.join(model_weights, "fishSpeciesClassification.model")
-pickle_path = os.path.join(model_weights, "lb.pickle")
+import file_paths as fp
 
 
 def find_test_image_YOLOv3():
-    return test_images_path
+    return fp.test_images_path
 
 
 def crop_detected_image(detection_results_folder):
@@ -42,7 +24,7 @@ def crop_detected_image(detection_results_folder):
         print(source_image_path)
         im = Image.open(source_image_path)
         im_crop = im.crop((row['xmin'], row['ymin'], row['xmax'], row['ymax']))
-        image_classification_source_path = os.path.join(image_classification_source, str(row['label']) + "-" +
+        image_classification_source_path = os.path.join(fp.image_classification_source, str(row['label']) + "-" +
                                                         str(index) + "-" + row['image'])
         im_crop.save(image_classification_source_path, quality=95)
         im_crop.show()
@@ -68,15 +50,15 @@ def main():
 
     # classify images using tiny VGGNet
     print("Model>>>>>>>>>>>>>>>")
-    print(vggnet_model_path)
+    print(fp.vggnet_model_path)
     print("Model>>>>>>>>>>>>>>>")
-    print(pickle_path)
-    cs.classify(vggnet_model_path, pickle_path, image_classification_source)
+    print(fp.pickle_path)
+    cs.classify(fp.vggnet_model_path, fp.pickle_path, fp.image_classification_source)
 
     # Function to clear the directories.
     # TO DO: path passed as an argument should be managed.
-    clear_directory(test_images_path)
-    clear_directory(image_classification_source)
+    clear_directory(fp.test_images_path)
+    clear_directory(fp.image_classification_source)
 
 
 if __name__ == "__main__":
