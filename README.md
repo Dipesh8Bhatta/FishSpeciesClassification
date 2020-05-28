@@ -46,7 +46,7 @@ You are ready run this program. Run this command in your terminal.
 Or just use this command if you have already stored the images in _Data >> Source_Images >> Test_Images_.<br />
 ```Python main_controller.py```
 
-###Result
+### Result
 Now, you will see the result in a pop window, showing information about the classified fish image. You can hover your 
 cursor in the pop up window and press any key to view next result.<br />
   
