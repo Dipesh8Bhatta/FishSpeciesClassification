@@ -16,7 +16,7 @@ model_weights = os.path.join(data_folder, 'Model_Weights')
 source_images = os.path.join(data_folder, 'Source_Images')
 
 test_images_path = os.path.join(source_images, 'Test_Images')
-image_classification_source = os.path.join(source_images, "examples")
+image_classification_source = os.path.join(source_images, "Test_Classification")
 vggnet_model_path = os.path.join(model_weights, "fishSpeciesClassification.model")
 pickle_path = os.path.join(model_weights, "lb.pickle")
 
@@ -33,3 +33,5 @@ YOLO_classname = os.path.join(model_weights, "data_classes.txt")
 
 log_dir = model_weights
 weights_path = os.path.join(model_weights, "yolo.h5")
+
+# final_output = os.path.join(source_images, "Final_Output")

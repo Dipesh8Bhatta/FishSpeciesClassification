@@ -18,7 +18,7 @@ import os
 # ap.add_argument("-i", "--image", required=True,
 # 	help="path to input image")
 # args = vars(ap.parse_args())
-def classify(model_path, label, image_classification_source):
+def classify(model_path, label, image_classification_source, final_output):
 	# load the trained convolutional neural network and the label
 	# binarizer
 	print("[INFO] loading network...")
@@ -61,12 +61,21 @@ def classify(model_path, label, image_classification_source):
 		# show the output image
 		print("[INFO] {}".format(label))
 		cv2.imshow("Output", output)
+
+		# final output path.
+		# final_image_path = os.path.join(final_output, test_image)
+		# print(">>>>>>>>>>>>>>>>>>>>")
+		# print(final_image_path)
+		# print(output)
+		# if not cv2.imwrite(final_image_path, output):
+		# 	raise Exception("Could not write image")
+
 		cv2.waitKey(0)
 
 
 def main():
 	classify("Data/Model_Weights/fishSpeciesClassification.model", "Data/Model_Weights/lb.pickle",
-			 "/home/bishal/PycharmProjects/FishSpeciesClassification/Data/Source_Images/examples")
+			 "/home/bishal/PycharmProjects/FishSpeciesClassification/Data/Source_Images/Test_Classification")
 
 
 if __name__ == "__main__":

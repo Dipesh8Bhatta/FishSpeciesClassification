@@ -27,38 +27,43 @@ def crop_detected_image(detection_results_folder):
         image_classification_source_path = os.path.join(fp.image_classification_source, str(row['label']) + "-" +
                                                         str(index) + "-" + row['image'])
         im_crop.save(image_classification_source_path, quality=95)
-        im_crop.show()
+        # im_crop.show()
+
 
 def clear_directory(directory):
     files = glob.glob(directory + '/*')
     for f in files:
         os.remove(f)
 
+
 def main():
     print("Welcome to Fish Classification System...")
 
+    # Clear previously identified fish images result from Test_Classification, Test_Image_Detection_Results and Result folder.
+    print(">>>>>>>>>>>>>>>>>>>")
+    print("Cleaning previous result...")
+    clear_directory(fp.detection_results_folder)
+    clear_directory(fp.image_classification_source)
+
     # Find the Images path for the object detection using YOLOv3.
+    print(">>>>>>>>>>>>>>>>>>>")
+    print("Managing photos for detection...")
     test_image_YOLOv3 = find_test_image_YOLOv3()
 
     # Use YOLOv3 for object detection and return path.
-    detection_results_folder = dt.detect(test_image_YOLOv3)
     print(">>>>>>>>>>>>>>>>>>>")
-    print(detection_results_folder)
+    print("Running YOLOv3 for detection...")
+    detection_results_folder = dt.detect(test_image_YOLOv3)
 
     # Function to crop the detected image from the YOLOv3 prediction.
+    print(">>>>>>>>>>>>>>>>>>>")
+    print("Cropping detected images from.." + detection_results_folder)
     crop_detected_image(detection_results_folder)
 
     # classify images using tiny VGGNet
-    print("Model>>>>>>>>>>>>>>>")
-    print(fp.vggnet_model_path)
-    print("Model>>>>>>>>>>>>>>>")
-    print(fp.pickle_path)
-    cs.classify(fp.vggnet_model_path, fp.pickle_path, fp.image_classification_source)
-
-    # Function to clear the directories.
-    # TO DO: path passed as an argument should be managed.
-    clear_directory(fp.test_images_path)
-    clear_directory(fp.image_classification_source)
+    print(">>>>>>>>>>>>>>>")
+    print("Running Smaller VGGNet for classification...")
+    cs.classify(fp.vggnet_model_path, fp.pickle_path, fp.image_classification_source, fp.final_output)
 
 
 if __name__ == "__main__":
