@@ -60,22 +60,24 @@ def classify(model_path, label, image_classification_source, final_output):
 			0.7, (0, 255, 0), 2)
 		# show the output image
 		print("[INFO] {}".format(label))
-		cv2.imshow("Output", output)
+		# cv2.imshow("Output", output)
 
 		# final output path.
-		# final_image_path = os.path.join(final_output, test_image)
+		final_image_path = os.path.join(final_output, test_image)
 		# print(">>>>>>>>>>>>>>>>>>>>")
 		# print(final_image_path)
 		# print(output)
 		# if not cv2.imwrite(final_image_path, output):
 		# 	raise Exception("Could not write image")
+		cv2.imwrite(final_image_path, output)
 
-		cv2.waitKey(0)
+
+		# cv2.waitKey(0)
 
 
 def main():
 	classify("Data/Model_Weights/fishSpeciesClassification.model", "Data/Model_Weights/lb.pickle",
-			 "/home/bishal/PycharmProjects/FishSpeciesClassification/Data/Source_Images/Test_Classification")
+			 "Data/Source_Images/Test_Image_Detection_Results", "Data/Source_Images/Test_Classification")
 
 
 if __name__ == "__main__":
