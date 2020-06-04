@@ -3,11 +3,23 @@
     label xmin ymin xmax ymax
     and converts to csv having following format:
     image, xmin, ymin, xmax, ymax, label
+
+    based on this formula...
+    x = xmin / width
+    y = ymin / height
+    w = (xmax - xmin) / width
+    h = (ymax - ymin) / height
+     so,
+     xmin = x * width
+     ymin = y * height
+     xmax = (w * width) + xmin
+     ymax = (h * height) + ymin
  """
 
 import sys
 import os
 import pandas as pd
+import PIL
 
 imgFolderPath = sys.argv[1]
 
@@ -29,8 +41,22 @@ for file in os.listdir(imgFolderPath):
             list_column_info = each_line.split()
             # print("List of a row info >>>>")
             # print(list_column_info)
-            new_entry = {"image": image_name, "xmin": list_column_info[1], "ymin": list_column_info[2], "xmax":
-                list_column_info[3], "ymax": list_column_info[4], "label": label}
+
+            image = PIL.Image.open(image_name)
+            width, height = image.size
+
+            x = list_column_info[1]
+            y = list_column_info[2]
+            w = list_column_info[3]
+            h = list_column_info[4]
+
+            xmin = x * width
+            ymin = y * height
+            xmax = (w * width) + xmin
+            ymax = (h * height) + ymin
+
+            new_entry = {"image": image_name, "xmin": xmin, "ymin": ymin, "xmax":
+                xmax, "ymax": ymax, "label": label}
             df_annotation_info.loc[len(df_annotation_info)] = new_entry
         txt_file.close()
 
