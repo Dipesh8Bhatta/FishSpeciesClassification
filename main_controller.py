@@ -63,7 +63,7 @@ def main():
     # classify images using tiny VGGNet
     print(">>>>>>>>>>>>>>>")
     print("Running Smaller VGGNet for classification...")
-    cs.classify(fp.vggnet_model_path, fp.pickle_path, fp.image_classification_source, fp.final_output)
+    cs.classify(fp.vggnet_model_path, fp.pickle_path, fp.image_classification_source, fp.image_classification_output)
 
 
 if __name__ == "__main__":

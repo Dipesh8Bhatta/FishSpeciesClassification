@@ -24,7 +24,7 @@ def classify(model_path, label, image_classification_source, final_output):
 	print("[INFO] loading network...")
 	# model = load_model(args["model"])
 	backend.clear_session()
-	model = load_model(model_path, compile=False)
+	model = load_model(model_path, compile=True)
 	# lb = pickle.loads(open(args["labelbin"], "rb").read())
 	lb = pickle.loads(open(label, "rb").read())
 

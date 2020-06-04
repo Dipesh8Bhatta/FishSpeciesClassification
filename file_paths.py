@@ -17,10 +17,11 @@ source_images = os.path.join(data_folder, 'Source_Images')
 
 test_images_path = os.path.join(source_images, 'Test_Images')
 image_classification_source = os.path.join(source_images, "Test_Classification")
+image_classification_output = os.path.join(source_images, "Classification_Result")
 vggnet_model_path = os.path.join(model_weights, "fishSpeciesClassification.model")
 pickle_path = os.path.join(model_weights, "lb.pickle")
 
-detection_results_folder = os.path.join(source_images, "Test_Image_Detection_Results")
+detection_results_folder = os.path.join(source_images, "Image_Detection_Results")
 detection_results_file = os.path.join(detection_results_folder, "Detection_Results.csv")
 
 YOLO_weights = os.path.join(model_weights, "trained_weights_final.h5")
